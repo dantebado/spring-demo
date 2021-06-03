@@ -20,7 +20,8 @@ public class GenericException extends RuntimeException {
     ExceptionType type;
 
     public enum ExceptionType {
-        PET_NOT_FOUND
+        PET_NOT_FOUND,
+        WRONG_CREDENTIALS
     }
 
     public GenericException(String message, ExceptionType type) {

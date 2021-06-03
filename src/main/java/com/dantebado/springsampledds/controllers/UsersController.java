@@ -1,6 +1,7 @@
 package com.dantebado.springsampledds.controllers;
 
 import com.dantebado.springsampledds.model.users.UserCDTO;
+import com.dantebado.springsampledds.model.users.UserSignin;
 import com.dantebado.springsampledds.model.users.UserRDTO;
 import com.dantebado.springsampledds.services.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,17 @@ public class UsersController {
     UserSvc userSvc;
 
     @PostMapping
-    public ResponseEntity<UserRDTO> createPet(
+    public ResponseEntity<UserRDTO> signupUser(
             @RequestBody UserCDTO body
             ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userSvc.create(body).toRDTO());
+    }
+
+    @PostMapping(value = "/signin")
+    public ResponseEntity<UserRDTO> signinUser(
+            @RequestBody UserSignin body
+            ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userSvc.signin(body).toRDTO());
     }
 
 }
