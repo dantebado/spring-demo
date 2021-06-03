@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
-import java.util.UUID;
 
 import static com.dantebado.springsampledds.exceptions.GenericException.ExceptionType.WRONG_CREDENTIALS;
 
@@ -35,6 +34,11 @@ public class UserSvc {
         return save(user);
     }
 
+    protected User findBySecretToken(String secretToken) {
+        return userRepo.findBySecretToken(secretToken)
+            .orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
+    }
+
     private User save(User user) {
         return userRepo.save(user);
     }
@@ -50,8 +54,7 @@ public class UserSvc {
         user.setLastSigninDate(Calendar.getInstance());
 
         // Emulate JWT token
-        String authenticationToken = UUID.randomUUID().toString().replace("-", "");
-        response.addHeader("Authorization", authenticationToken);
+        response.addHeader("Authorization", user.getSecretToken());
 
         return save(user);
     }

@@ -24,12 +24,17 @@ public class User {
     Calendar registrationDate;
     Calendar lastSigninDate;
 
+    String secretToken;
+
     public UserRDTO toRDTO() {
         return new UserRDTO(id, email, registrationDate, lastSigninDate);
     }
 
     public static User fromCDTO(UserCDTO body) {
-        return new User(UUID.randomUUID().toString(), body.getEmail(), body.getPassword(), Calendar.getInstance(), null);
+        return new User(UUID.randomUUID().toString(),
+            body.getEmail(), body.getPassword(),
+            Calendar.getInstance(), null,
+            UUID.randomUUID().toString());
     }
 
 }
