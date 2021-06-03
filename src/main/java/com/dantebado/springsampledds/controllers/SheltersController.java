@@ -1,6 +1,6 @@
 package com.dantebado.springsampledds.controllers;
 
-import com.dantebado.springsampledds.model.ext.shelters.SheltersPage;
+import com.dantebado.springsampledds.model.shelters.SheltersRDTOPage;
 import com.dantebado.springsampledds.services.ShelterSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ public class SheltersController {
     ShelterSvc shelterSvc;
 
     @GetMapping
-    public ResponseEntity<SheltersPage> findAll(
+    public ResponseEntity<SheltersRDTOPage> findAll(
             @RequestParam(defaultValue = "1") Integer offset
     ) {
-        return ResponseEntity.ok(shelterSvc.findAll(offset));
+        return ResponseEntity.ok(shelterSvc.findAll(offset).toRDTOPage());
     }
 
 }
