@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Calendar;
 import java.util.UUID;
 
 import static com.dantebado.springsampledds.exceptions.GenericException.ExceptionType.WRONG_CREDENTIALS;
@@ -21,6 +23,9 @@ public class UserSvc {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    HttpServletResponse response;
 
     public User create(UserCDTO body) {
         body.setPassword(
@@ -42,6 +47,12 @@ public class UserSvc {
             throw new GenericException("Wrong credentials", WRONG_CREDENTIALS);
         }
 
-        return user;
+        user.setLastSigninDate(Calendar.getInstance());
+
+        // Emulate JWT token
+        String authenticationToken = UUID.randomUUID().toString().replace("-", "");
+        response.addHeader("Authorization", authenticationToken);
+
+        return save(user);
     }
 }
