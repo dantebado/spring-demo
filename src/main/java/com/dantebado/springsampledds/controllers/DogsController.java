@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping(value = "/pets/dogs")
 public class DogsController {
@@ -20,7 +22,7 @@ public class DogsController {
 
     @PostMapping
     public ResponseEntity<PetRDTO> createDog(
-            @RequestBody DogCDTO body
+            @RequestBody @Valid DogCDTO body
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(dogSvc.create(body).toRDTO());
     }

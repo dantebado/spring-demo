@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,14 +27,14 @@ public class UsersController {
 
     @PostMapping
     public ResponseEntity<UserRDTO> signupUser(
-            @RequestBody UserCDTO body
+            @RequestBody @Valid UserCDTO body
             ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userSvc.create(body).toRDTO());
     }
 
     @PostMapping(value = "/signin")
     public ResponseEntity<UserRDTO> signinUser(
-            @RequestBody UserSignin body
+            @RequestBody @Valid UserSignin body
             ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userSvc.signin(body).toRDTO());
     }
@@ -72,7 +73,7 @@ public class UsersController {
 
     @PostMapping(value = "/recovery/do")
     public ResponseEntity<UserRDTO> doPasswordRecovery(
-            @RequestBody UserPasswordRecovery body
+            @RequestBody @Valid UserPasswordRecovery body
             ) {
         return ResponseEntity.ok(userSvc.doPasswordRecovery(body).toRDTO());
     }

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class PetsController {
 
     @PostMapping
     public ResponseEntity<PetRDTO> createPet(
-            @RequestBody PetCDTO body
+            @RequestBody @Valid PetCDTO body
             ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(petSvc.create(body).toRDTO());
     }
