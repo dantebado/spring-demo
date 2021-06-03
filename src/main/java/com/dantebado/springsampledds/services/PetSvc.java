@@ -33,9 +33,14 @@ public class PetSvc {
     public Pet update(String id, PetCDTO body) {
         Pet pet = findById(id);
 
-        pet.setName(body.getName());
-        pet.setOwnerFullName(body.getOwnerFullName());
-        pet.setSex(body.getSex());
+        if (body.getName() != null)
+            pet.setName(body.getName());
+
+        if (body.getOwnerFullName() != null)
+            pet.setOwnerFullName(body.getOwnerFullName());
+
+        if (body.getSex() != null)
+            pet.setSex(body.getSex());
 
         return save(pet);
     }
