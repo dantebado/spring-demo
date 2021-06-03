@@ -5,6 +5,7 @@ import com.dantebado.springsampledds.model.users.User;
 import com.twilio.rest.api.v2010.account.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +20,7 @@ public class TwilioSvc {
     @Value("${twilio.sms.phone-number}")
     String TWILIO_SMS_FROM_NUMBER;
 
+    @Async
     public void sendRecoveryCodeToUser(User user) {
         if (user.getMobilePhoneNumber() == null) return;
 
