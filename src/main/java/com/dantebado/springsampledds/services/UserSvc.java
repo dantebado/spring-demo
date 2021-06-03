@@ -33,6 +33,6 @@ public class UserSvc {
     }
 
     public User signin(UserSignin body) {
-        throw new GenericException("Wrong Credentials", WRONG_CREDENTIALS);
+        return userRepo.findByEmail(body.getEmail()).orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
     }
 }
