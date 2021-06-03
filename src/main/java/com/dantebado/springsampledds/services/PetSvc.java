@@ -1,5 +1,6 @@
 package com.dantebado.springsampledds.services;
 
+import com.dantebado.springsampledds.exceptions.GenericException;
 import com.dantebado.springsampledds.model.pets.Pet;
 import com.dantebado.springsampledds.model.pets.PetCDTO;
 import com.dantebado.springsampledds.repositories.PetRepo;
@@ -21,7 +22,7 @@ public class PetSvc {
 
     public Pet findById(String id) {
         Optional<Pet> pet = petRepo.findById(id);
-        return pet.orElse(null);
+        return pet.orElseThrow(() -> new GenericException("Pet not found: " + id));
     }
 
     private Pet save(Pet pet) {
