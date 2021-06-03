@@ -17,6 +17,7 @@ public class AuthSvc {
 
     public User getCurrentUser() {
         String authorizationHeader = request.getHeader("Authorization");
+        System.out.println(authorizationHeader);
         return userSvc.findBySecretToken(authorizationHeader);
     }
 
