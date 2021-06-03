@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface UserRepo extends PagingAndSortingRepository<User, String> {
 
     Optional<User> findByEmail(String email);
+    Optional<User> findByPasswordRecoveryCode(String passwordRecoveryCode);
     Optional<User> findBySecretToken(String secretToken);
 
 }

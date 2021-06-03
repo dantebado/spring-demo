@@ -36,6 +36,8 @@ public class User {
     @OneToMany(mappedBy = "owner")
     Set<Pet> pets;
 
+    String passwordRecoveryCode;
+
     public UserRDTO toRDTO() {
         return new UserRDTO(id, email, registrationDate, lastSigninDate);
     }
@@ -44,7 +46,12 @@ public class User {
         return new User(UUID.randomUUID().toString(),
             body.getEmail(), body.getPassword(),
             Calendar.getInstance(), null,
-            UUID.randomUUID().toString(), Collections.emptySet());
+            UUID.randomUUID().toString(), Collections.emptySet(),
+            null);
+    }
+
+    public void resetPasswordRecoveryCode() {
+        this.passwordRecoveryCode = UUID.randomUUID().toString().split("-")[0];
     }
 
 }

@@ -3,6 +3,7 @@ package com.dantebado.springsampledds.services;
 import com.dantebado.springsampledds.exceptions.GenericException;
 import com.dantebado.springsampledds.model.users.User;
 import com.dantebado.springsampledds.model.users.UserCDTO;
+import com.dantebado.springsampledds.model.users.UserPasswordRecovery;
 import com.dantebado.springsampledds.model.users.UserSignin;
 import com.dantebado.springsampledds.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +59,21 @@ public class UserSvc {
 
         return save(user);
     }
+
+    public User triggerPasswordRecovery(String email) {
+        User user = userRepo.findByEmail(email).orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
+        user.resetPasswordRecoveryCode();
+        return save(user);
+    }
+
+    public User doPasswordRecovery(UserPasswordRecovery body) {
+        User user = userRepo.findByPasswordRecoveryCode(body.getPasswordRecoveryCode())
+                .orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
+
+        user.setPassword(encoder.encode(body.getNewPassword()));
+        user.setPasswordRecoveryCode(null);
+
+        return save(user);
+    }
+
 }

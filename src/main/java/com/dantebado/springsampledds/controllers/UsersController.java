@@ -2,19 +2,14 @@ package com.dantebado.springsampledds.controllers;
 
 import com.dantebado.springsampledds.model.pets.Pet;
 import com.dantebado.springsampledds.model.pets.PetSRDTO;
-import com.dantebado.springsampledds.model.users.UserCDTO;
-import com.dantebado.springsampledds.model.users.UserRDTO;
-import com.dantebado.springsampledds.model.users.UserSignin;
+import com.dantebado.springsampledds.model.users.*;
 import com.dantebado.springsampledds.services.AuthSvc;
 import com.dantebado.springsampledds.services.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,6 +51,20 @@ public class UsersController {
                 .stream().map(Pet::toSRDTO)
                 .collect(Collectors.toSet())
         );
+    }
+
+    @PostMapping(value = "/recovery/trigger")
+    public ResponseEntity<UserRDTO> triggerPasswordRecovery(
+            @RequestParam(required = true) String email
+    ) {
+        return ResponseEntity.ok(userSvc.triggerPasswordRecovery(email).toRDTO());
+    }
+
+    @PostMapping(value = "/recovery/do")
+    public ResponseEntity<UserRDTO> doPasswordRecovery(
+            @RequestBody UserPasswordRecovery body
+            ) {
+        return ResponseEntity.ok(userSvc.doPasswordRecovery(body).toRDTO());
     }
 
 }
