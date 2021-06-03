@@ -26,8 +26,8 @@ public class PetSvc {
             .orElseThrow(() -> new GenericException("Pet not found: " + id, GenericException.ExceptionType.PET_NOT_FOUND));
     }
 
-    public Page<Pet> findAll(Pageable pageable) {
-        return petRepo.findAll(pageable);
+    public Page<Pet> findAll(String query, Pageable pageable) {
+        return petRepo.findAll(query, pageable);
     }
 
     public Pet update(String id, PetCDTO body) {

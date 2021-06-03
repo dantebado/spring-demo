@@ -43,9 +43,10 @@ public class PetsController {
 
     @GetMapping
     public ResponseEntity<Page<PetRDTO>> findAll(
-            Pageable pageable
+            Pageable pageable,
+            @RequestParam(required = false) String query
     ) {
-        return ResponseEntity.ok(petSvc.findAll(pageable).map(Pet::toRDTO));
+        return ResponseEntity.ok(petSvc.findAll(query, pageable).map(Pet::toRDTO));
     }
 
 }
