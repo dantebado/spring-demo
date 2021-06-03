@@ -23,7 +23,8 @@ public class GenericException extends RuntimeException {
         PET_NOT_FOUND,
         WRONG_CREDENTIALS,
         SHELTER_API_EXCEPTION,
-        USER_NOT_FOUND
+        USER_NOT_FOUND,
+        USER_IS_PET_OWNER
     }
 
     public GenericException(String message, ExceptionType type) {

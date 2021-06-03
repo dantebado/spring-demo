@@ -46,11 +46,19 @@ public class PetsController {
     }
 
     @PostMapping(value = "/{petId}/authorized-users/{userId}")
-    public ResponseEntity<PetRDTO> findAuthorizedUsersByPetId(
+    public ResponseEntity<PetRDTO> authorizeUserByPetId(
             @PathVariable String petId,
             @PathVariable String userId
     ) {
         return ResponseEntity.ok(petSvc.authorizePetForUser(petId, userId).toRDTO());
+    }
+
+    @DeleteMapping(value = "/{petId}/authorized-users/{userId}")
+    public ResponseEntity<PetRDTO> deauthorizeUserByPetId(
+            @PathVariable String petId,
+            @PathVariable String userId
+    ) {
+        return ResponseEntity.ok(petSvc.deauthorizePetForUser(petId, userId).toRDTO());
     }
 
     @PutMapping(value = "/{id}")

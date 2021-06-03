@@ -63,4 +63,17 @@ public class PetSvc {
         return save(pet);
     }
 
+    public Pet deauthorizePetForUser(String petId, String userId) {
+        Pet pet = findById(petId);
+        User user = userSvc.findById(userId);
+
+        if (pet.getOwner() == user) {
+            throw new GenericException("Cannot deauthorize pet owner", GenericException.ExceptionType.USER_IS_PET_OWNER);
+        }
+
+        pet.getAuthorizedPeople().remove(user);
+
+        return save(pet);
+    }
+
 }
