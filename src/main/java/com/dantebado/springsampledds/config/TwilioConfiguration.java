@@ -13,7 +13,6 @@ public class TwilioConfiguration {
     String AUTH_TOKEN;
 
     public void setupTwilioAccount() {
-        System.out.println(ACCOUNT_SID + " " + AUTH_TOKEN);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
 

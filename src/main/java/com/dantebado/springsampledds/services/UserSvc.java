@@ -67,7 +67,7 @@ public class UserSvc {
         User user = userRepo.findByEmail(email).orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
         user.resetPasswordRecoveryCode();
 
-        twilioSvc.testTwilioConfig();
+        twilioSvc.sendRecoveryCodeToUser(user);
 
         return save(user);
     }
