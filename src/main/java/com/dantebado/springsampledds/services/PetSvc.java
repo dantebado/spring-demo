@@ -6,6 +6,8 @@ import com.dantebado.springsampledds.repositories.PetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PetSvc {
 
@@ -15,6 +17,11 @@ public class PetSvc {
     public Pet create(PetCDTO body) {
         Pet pet = Pet.fromCDTO(body);
         return save(pet);
+    }
+
+    public Pet findById(String id) {
+        Optional<Pet> pet = petRepo.findById(id);
+        return pet.orElse(null);
     }
 
     private Pet save(Pet pet) {
