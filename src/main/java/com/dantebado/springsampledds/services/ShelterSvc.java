@@ -18,9 +18,9 @@ public class ShelterSvc {
     @Autowired
     ObjectMapper objectMapper;
 
-    public SheltersPage findAll() {
+    public SheltersPage findAll(int offset) {
         try {
-            HttpResponse<InputStream> response = Unirest.get("https://api.refugiosdds.com.ar/api/hogares?offset=1")
+            HttpResponse<InputStream> response = Unirest.get("https://api.refugiosdds.com.ar/api/hogares?offset=" + offset)
                     .header("Accept", "application/json")
                     .header("Authorization", "Bearer " + API_AUTHORIZATION)
                     .asBinary();
