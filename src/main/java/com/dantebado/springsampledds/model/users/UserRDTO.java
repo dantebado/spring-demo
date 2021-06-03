@@ -20,4 +20,6 @@ public class UserRDTO {
     Calendar registrationDate;
     Calendar lastSigninDate;
 
+    String mobilePhoneNumber;
+
 }

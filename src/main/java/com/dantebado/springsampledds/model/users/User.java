@@ -38,8 +38,10 @@ public class User {
 
     String passwordRecoveryCode;
 
+    String mobilePhoneNumber;
+
     public UserRDTO toRDTO() {
-        return new UserRDTO(id, email, registrationDate, lastSigninDate);
+        return new UserRDTO(id, email, registrationDate, lastSigninDate, mobilePhoneNumber);
     }
 
     public static User fromCDTO(UserCDTO body) {
@@ -47,7 +49,7 @@ public class User {
             body.getEmail(), body.getPassword(),
             Calendar.getInstance(), null,
             UUID.randomUUID().toString(), Collections.emptySet(),
-            null);
+            null, body.getMobilePhoneNumber());
     }
 
     public void resetPasswordRecoveryCode() {

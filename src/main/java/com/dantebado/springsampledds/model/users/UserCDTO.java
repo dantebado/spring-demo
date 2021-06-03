@@ -12,4 +12,6 @@ public class UserCDTO {
     String email;
     String password;
 
+    String mobilePhoneNumber;
+
 }
