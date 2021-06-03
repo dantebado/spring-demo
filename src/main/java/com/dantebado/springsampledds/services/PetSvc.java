@@ -30,6 +30,16 @@ public class PetSvc {
         return petRepo.findAll(pageable);
     }
 
+    public Pet update(String id, PetCDTO body) {
+        Pet pet = findById(id);
+
+        pet.setName(body.getName());
+        pet.setOwnerFullName(body.getOwnerFullName());
+        pet.setSex(body.getSex());
+
+        return save(pet);
+    }
+
     private Pet save(Pet pet) {
         return petRepo.save(pet);
     }

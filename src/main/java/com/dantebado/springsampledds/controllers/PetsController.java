@@ -33,6 +33,14 @@ public class PetsController {
         return ResponseEntity.ok(petSvc.findById(id).toRDTO());
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PetRDTO> findById(
+            @PathVariable String id,
+            @RequestBody PetCDTO body
+    ) {
+        return ResponseEntity.ok(petSvc.update(id, body).toRDTO());
+    }
+
     @GetMapping
     public ResponseEntity<Page<PetRDTO>> findAll(
             Pageable pageable
