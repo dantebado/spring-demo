@@ -56,7 +56,7 @@ public class Pet {
     }
 
     public PetSRDTO toSRDTO() {
-        return new PetSRDTO(id, name, sex);
+        return new PetSRDTO(id, name, sex, getPetType());
     }
 
     public Pet(PetCDTO body, User owner) {

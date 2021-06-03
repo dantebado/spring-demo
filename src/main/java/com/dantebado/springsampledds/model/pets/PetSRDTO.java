@@ -13,5 +13,6 @@ public class PetSRDTO {
     String name;
 
     Pet.PetSex sex;
+    PetRDTO.PetType type;
 
 }

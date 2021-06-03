@@ -35,15 +35,7 @@ public class Dog extends Pet {
     @Override
     public DogRDTO toRDTO() {
         DogRDTO dog = new DogRDTO(size);
-
-        dog.setId(getId());
-        dog.setName(getName());
-        dog.setOwnerFullName(getOwner().getEmail());
-        dog.setOwner(getOwner().toRDTO());
-        dog.setSex(getSex());
-        dog.setRegistrationDate(getRegistrationDate());
-        dog.setType(getPetType());
-
+        dog.fillFromPet(this);
         return dog;
     }
 
