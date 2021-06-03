@@ -16,16 +16,25 @@ public class TwilioSvc {
     @Value("${twilio.whatsapp.phone-number}")
     String TWILIO_WHATSAPP_FROM_NUMBER;
 
+    @Value("${twilio.sms.phone-number}")
+    String TWILIO_SMS_FROM_NUMBER;
+
     public void sendRecoveryCodeToUser(User user) {
         if (user.getMobilePhoneNumber() == null) return;
 
         twilioConfiguration.setupTwilioAccount();
 
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:" + user.getMobilePhoneNumber()),
-                new com.twilio.type.PhoneNumber("whatsapp:" + TWILIO_WHATSAPP_FROM_NUMBER),
-                "*Hi " + user.getEmail() + "!*\nThis is your Pet's recovery code. Do not share it.\n\n*Code:* " + user.getPasswordRecoveryCode())
-                .create();
+        Message.creator(
+            new com.twilio.type.PhoneNumber("whatsapp:" + user.getMobilePhoneNumber()),
+            new com.twilio.type.PhoneNumber("whatsapp:" + TWILIO_WHATSAPP_FROM_NUMBER),
+            "*Hi " + user.getEmail() + "!*\nThis is your Pet's recovery code. Do not share it.\n\n*Code:* " + user.getPasswordRecoveryCode())
+            .create();
+
+        Message.creator(
+            new com.twilio.type.PhoneNumber(user.getMobilePhoneNumber()),
+            new com.twilio.type.PhoneNumber(TWILIO_SMS_FROM_NUMBER),
+            "Hi " + user.getEmail() + "!\nThis is your Pet's recovery code. Do not share it.\n\nCode: " + user.getPasswordRecoveryCode())
+            .create();
     }
 
 }
