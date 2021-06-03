@@ -36,9 +36,6 @@ public class PetSvc {
         if (body.getName() != null)
             pet.setName(body.getName());
 
-        if (body.getOwnerFullName() != null)
-            pet.setOwnerFullName(body.getOwnerFullName());
-
         if (body.getSex() != null)
             pet.setSex(body.getSex());
 

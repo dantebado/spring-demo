@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 public class PetCDTO {
 
     String name;
-    String ownerFullName;
-
     Pet.PetSex sex;
 
 }

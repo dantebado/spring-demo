@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PetRepo extends PagingAndSortingRepository<Pet, String> {
 
-    @Query("SELECT p FROM Pet p WHERE (:query IS NULL OR p.name LIKE %:query% OR p.ownerFullName LIKE %:query%)")
+    @Query("SELECT p FROM Pet p WHERE (:query IS NULL OR p.name LIKE %:query%)")
     Page<Pet> findAll(String query, @NotNull Pageable pageable);
 
 }
