@@ -4,6 +4,7 @@ import com.dantebado.springsampledds.model.greeting.GreetingRDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +15,13 @@ public class HelloController {
     @GetMapping
     public ResponseEntity<GreetingRDTO> sayHello(
             @RequestParam(required = false, defaultValue = "World") String name
+    ) {
+        return ResponseEntity.ok(new GreetingRDTO(name));
+    }
+
+    @GetMapping(value = "/{name}")
+    public ResponseEntity<GreetingRDTO> sayHelloToPathVariable(
+            @PathVariable String name
     ) {
         return ResponseEntity.ok(new GreetingRDTO(name));
     }
