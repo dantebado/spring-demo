@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 import static com.dantebado.springsampledds.exceptions.GenericException.ExceptionType.WRONG_CREDENTIALS;
 
 @Service
@@ -33,6 +35,13 @@ public class UserSvc {
     }
 
     public User signin(UserSignin body) {
-        return userRepo.findByEmail(body.getEmail()).orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
+        User user = userRepo.findByEmail(body.getEmail())
+            .orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
+
+        if (!encoder.matches(body.getPassword(), user.getPassword())) {
+            throw new GenericException("Wrong credentials", WRONG_CREDENTIALS);
+        }
+
+        return user;
     }
 }
