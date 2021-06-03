@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -13,7 +14,8 @@ import java.io.InputStream;
 @Service
 public class ShelterSvc {
 
-    static final String API_AUTHORIZATION = "WTkGRTX5g6vBQYnbIGC82lNJfzf0RvkeS19HrIGG6624LGTYP161jwFdM4tH";
+    @Value("${ext.shelter-api.authorization-token}")
+    String API_AUTHORIZATION;
 
     @Autowired
     ObjectMapper objectMapper;
