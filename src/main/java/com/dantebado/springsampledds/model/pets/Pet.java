@@ -3,6 +3,7 @@ package com.dantebado.springsampledds.model.pets;
 import com.dantebado.springsampledds.model.users.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,9 +14,11 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pet {
 
     @Id
+    @EqualsAndHashCode.Include
     String id;
     String name;
 
@@ -39,6 +42,10 @@ public class Pet {
             owner != null ? owner.getEmail() : null,
             owner != null ? owner.toRDTO() : null,
             sex, registrationDate);
+    }
+
+    public PetSRDTO toSRDTO() {
+        return new PetSRDTO(id, name, sex);
     }
 
     public static Pet fromCDTO(PetCDTO body, User owner) {
