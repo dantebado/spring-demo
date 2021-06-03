@@ -1,12 +1,10 @@
 package com.dantebado.springsampledds.controllers;
 
 import com.dantebado.springsampledds.model.greeting.GreetingRDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/")
@@ -24,6 +22,13 @@ public class HelloController {
             @PathVariable String name
     ) {
         return ResponseEntity.ok(new GreetingRDTO(name));
+    }
+
+    @PostMapping(value = "/mirror")
+    public ResponseEntity<Object> mirrorMe(
+            @RequestBody Object body
+    ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(body);
     }
 
 }
