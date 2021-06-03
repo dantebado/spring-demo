@@ -27,6 +27,9 @@ public class UserSvc {
     @Autowired
     HttpServletResponse response;
 
+    @Autowired
+    TwilioSvc twilioSvc;
+
     public User create(UserCDTO body) {
         body.setPassword(
                 encoder.encode(body.getPassword())
@@ -63,6 +66,9 @@ public class UserSvc {
     public User triggerPasswordRecovery(String email) {
         User user = userRepo.findByEmail(email).orElseThrow(() -> new GenericException("Wrong credentials", WRONG_CREDENTIALS));
         user.resetPasswordRecoveryCode();
+
+        twilioSvc.testTwilioConfig();
+
         return save(user);
     }
 
