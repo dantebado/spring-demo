@@ -21,4 +21,10 @@ public class PetRDTO {
 
     Calendar registrationDate;
 
+    public enum PetType {
+        dog,
+        parrots
+    }
+    PetType type;
+
 }

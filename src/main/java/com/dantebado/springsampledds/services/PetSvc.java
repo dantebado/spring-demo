@@ -24,7 +24,7 @@ public class PetSvc {
 
     public Pet create(PetCDTO body) {
         User owner = authSvc.getCurrentUser();
-        Pet pet = Pet.fromCDTO(body, owner);
+        Pet pet = new Pet(body, owner);
         return save(pet);
     }
 
