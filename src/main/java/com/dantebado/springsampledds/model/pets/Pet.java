@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +38,14 @@ public class Pet {
     @Temporal(TemporalType.TIMESTAMP)
     Calendar registrationDate;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+        name = "pet_authorized_people",
+        joinColumns = @JoinColumn(name = "book_id", nullable = false),
+        inverseJoinColumns = @JoinColumn(name="user_id", nullable = false)
+    )
+    Set<User> authorizedPeople;
+
     public PetRDTO toRDTO() {
         return new PetRDTO(id, name,
             owner != null ? owner.getEmail() : null,
@@ -54,7 +63,7 @@ public class Pet {
             body.getName(),
             owner,
             body.getSex(),
-            Calendar.getInstance()
+            Calendar.getInstance(), Set.of(owner)
         );
     }
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 
+import static com.dantebado.springsampledds.exceptions.GenericException.ExceptionType.USER_NOT_FOUND;
 import static com.dantebado.springsampledds.exceptions.GenericException.ExceptionType.WRONG_CREDENTIALS;
 
 @Service
@@ -80,6 +81,10 @@ public class UserSvc {
         user.setPasswordRecoveryCode(null);
 
         return save(user);
+    }
+
+    public User findById(String id) {
+        return userRepo.findById(id).orElseThrow(() -> new GenericException("User not found", USER_NOT_FOUND));
     }
 
 }

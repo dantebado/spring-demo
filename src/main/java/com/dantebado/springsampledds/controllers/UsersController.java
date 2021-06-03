@@ -53,6 +53,16 @@ public class UsersController {
         );
     }
 
+    @GetMapping(value = "/me/authorized-pets")
+    public ResponseEntity<Set<PetSRDTO>> myAuthorizedPets() {
+        return ResponseEntity.ok(
+            authSvc.getCurrentUser()
+                .getAuthorizedPets()
+                .stream().map(Pet::toSRDTO)
+                .collect(Collectors.toSet())
+        );
+    }
+
     @PostMapping(value = "/recovery/trigger")
     public ResponseEntity<UserRDTO> triggerPasswordRecovery(
             @RequestParam(required = true) String email

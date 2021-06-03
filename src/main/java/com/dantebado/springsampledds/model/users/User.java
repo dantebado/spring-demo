@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Set;
@@ -40,6 +38,9 @@ public class User {
 
     String mobilePhoneNumber;
 
+    @ManyToMany(mappedBy = "authorizedPeople", cascade = CascadeType.PERSIST)
+    Set<Pet> authorizedPets;
+
     public UserRDTO toRDTO() {
         return new UserRDTO(id, email, registrationDate, lastSigninDate, mobilePhoneNumber);
     }
@@ -49,7 +50,7 @@ public class User {
             body.getEmail(), body.getPassword(),
             Calendar.getInstance(), null,
             UUID.randomUUID().toString(), Collections.emptySet(),
-            null, body.getMobilePhoneNumber());
+            null, body.getMobilePhoneNumber(), Collections.emptySet());
     }
 
     public void resetPasswordRecoveryCode() {

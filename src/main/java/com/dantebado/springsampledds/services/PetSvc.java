@@ -17,6 +17,9 @@ public class PetSvc {
     PetRepo petRepo;
 
     @Autowired
+    UserSvc userSvc;
+
+    @Autowired
     AuthSvc authSvc;
 
     public Pet create(PetCDTO body) {
@@ -49,6 +52,15 @@ public class PetSvc {
 
     private Pet save(Pet pet) {
         return petRepo.save(pet);
+    }
+
+    public Pet authorizePetForUser(String petId, String userId) {
+        Pet pet = findById(petId);
+        User user = userSvc.findById(userId);
+
+        pet.getAuthorizedPeople().add(user);
+
+        return save(pet);
     }
 
 }
