@@ -3,6 +3,7 @@ package com.dantebado.springsampledds.services;
 import com.dantebado.springsampledds.exceptions.GenericException;
 import com.dantebado.springsampledds.model.pets.Pet;
 import com.dantebado.springsampledds.model.pets.PetCDTO;
+import com.dantebado.springsampledds.model.users.User;
 import com.dantebado.springsampledds.repositories.PetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +16,12 @@ public class PetSvc {
     @Autowired
     PetRepo petRepo;
 
+    @Autowired
+    AuthSvc authSvc;
+
     public Pet create(PetCDTO body) {
-        Pet pet = Pet.fromCDTO(body);
+        User owner = authSvc.getCurrentUser();
+        Pet pet = Pet.fromCDTO(body, owner);
         return save(pet);
     }
 

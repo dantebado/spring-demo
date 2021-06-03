@@ -41,11 +41,11 @@ public class Pet {
             sex, registrationDate);
     }
 
-    public static Pet fromCDTO(PetCDTO body) {
+    public static Pet fromCDTO(PetCDTO body, User owner) {
         return new Pet(
             UUID.randomUUID().toString(),
             body.getName(),
-            null,
+            owner,
             body.getSex(),
             Calendar.getInstance()
         );
