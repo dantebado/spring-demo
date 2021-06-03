@@ -7,8 +7,6 @@ import com.dantebado.springsampledds.repositories.PetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class PetSvc {
 
@@ -21,8 +19,9 @@ public class PetSvc {
     }
 
     public Pet findById(String id) {
-        Optional<Pet> pet = petRepo.findById(id);
-        return pet.orElseThrow(() -> new GenericException("Pet not found: " + id));
+        return petRepo
+            .findById(id)
+            .orElseThrow(() -> new GenericException("Pet not found: " + id, GenericException.ExceptionType.PET_NOT_FOUND));
     }
 
     private Pet save(Pet pet) {

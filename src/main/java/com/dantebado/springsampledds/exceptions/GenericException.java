@@ -17,11 +17,17 @@ public class GenericException extends RuntimeException {
     HttpStatus status;
     Calendar date;
     String message;
+    ExceptionType type;
 
-    public GenericException(String message) {
+    public enum ExceptionType {
+        PET_NOT_FOUND
+    }
+
+    public GenericException(String message, ExceptionType type) {
         super();
         this.message = message;
         this.date = Calendar.getInstance();
+        this.type = type;
         this.status = DEFAULT_HTTP_STATUS;
     }
 
